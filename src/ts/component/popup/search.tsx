@@ -297,6 +297,7 @@ const PopupSearch = observer(class PopupSearch extends React.Component<I.Popup, 
 		const storage = storageGet();
 		const { backlink } = storage;
 		const filter = String(storage.filter || '');
+		const isSaved = filter || backlink;
 
 		const setFilter = () => {
 			if (!filter || !this.refFilter) {
@@ -322,7 +323,7 @@ const PopupSearch = observer(class PopupSearch extends React.Component<I.Popup, 
 			this.reload();
 		};
 
-		analytics.event('ScreenSearch', { route });
+		analytics.event('ScreenSearch', { route, type: (isSaved ? 'Saved' : 'Empty') });
 	};
 	
 	componentDidUpdate () {
